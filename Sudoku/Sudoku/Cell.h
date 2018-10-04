@@ -33,13 +33,13 @@ class Cell {
 public:
 	Cell() {};
 	~Cell() {};
-	Cell(const Cell& mat);
-	Cell& operator=(const Cell& mat);
+	Cell(const Cell& mat); //copy construct
+	Cell& operator=(const Cell& mat); //assign
 	bool assign(pos_t row, pos_t col,data_t dat); //这里保证了正确填写
 	inline data_t at(pos_t row, pos_t col)const; //返回所在位置的数值
 	bool readMat(void);	//读取数独矩阵
-	bool init(const Mat& mat);
-	void print()const;
+	bool init(const Mat& mat);//init from array
+	void print()const; 
 	bool solve();
 	bool isCompleted();
 private:

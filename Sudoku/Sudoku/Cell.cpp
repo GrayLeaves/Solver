@@ -237,16 +237,16 @@ bool Cell::placeOneNum() {
 bool Cell::solve() {
 	bool flag = true;
 	while (!isAllFull()) {
-		gridSpaceAll();            //构造解空间
+		gridSpaceAll();        //构造解空间
 		if (!placeOneNum()) {  //没有唯一候选数,则调用试探
-#ifdef DEBUG
-			cout << "规则一不顶用，启用探测法求解,当前数偶有" << endl;
+#ifdef OUTPUT
+			cout << "启用探测法求解,当前数偶有" << endl;
 			for (auto &v : pair) cout << v << " ";
 			cout << endl;
 #endif
 			if (flag) {
-				if (!placeOnePair()) {//更新了解空间
-#ifdef DEBUG
+				if (!placeOnePair()) { //更新了解空间
+#ifdef OUTPUT
 					cout << "没有数偶，无法探测。打印堆栈：" << endl;
 					if (!bucket.empty()) {
 						cout << bucket.top() << " ";
@@ -259,19 +259,19 @@ bool Cell::solve() {
 				}
 			}
 			else {
-				flag = true;
-				backUpdate();	//还原之前的状态
 #ifdef DEBUG
-				cout << "探测失败,先不支持双重探测，当前数偶有" << endl;
+				cout << "探测失败，当前数偶有" << endl;
 				for (auto &v : pair) cout << v << " ";
 				cout << endl;
 				cout << "先返回到探测前的状态。" << endl;
 #endif
-				if (!placeNextPair()) {//更换出错
+				flag = true;
+				backUpdate();			//还原之前的状态
+				if (!placeNextPair()) {	//更换出错
 #ifdef DEBUG
 					cout << "更换出错。打印数独：" << endl;
-#endif
 					print();
+#endif
 					break;
 				}
 			}
@@ -290,7 +290,8 @@ bool Cell::solve() {
 		}
 		cout << endl;
 #endif
-		print();
+		cout << "求解失败!" << endl;
+		//print();
 		return false;
 	}
 }
@@ -531,12 +532,12 @@ bool Cell::isOkGrid(pos_t row, pos_t col, data_t dat) {
 
 void Cell::print()const {
 	data_t dat;
-	cout << "当前9X9的数独内容为：" << endl;
+	cout << "打印当前9X9的数独：" << endl;
 	for (int r = 1; r <= RANK; ++r) {
 		for (int c = 1; c <= RANK; ++c) {
 			dat = at(r, c);
-			if (0 == dat) cout << "_" << "  ";
-			else cout << dat << "  ";
+			if (0 == dat) cout << "_" << " ";
+			else cout << dat << " ";
 		}
 		cout << endl;
 	}
