@@ -19,7 +19,7 @@
 #include <iomanip>
 using namespace std;
 
-#define DEBUG
+//#define DEBUG
 //#define OUTPUT
 
 const int RANK = 9;

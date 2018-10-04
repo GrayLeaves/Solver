@@ -34,7 +34,9 @@ bool Cell::init(const Mat& mat) {
 	for (int i = 0; i < LEN; ++i) {
 		if (inRange(mat[i])) cell[i] = mat[i];
 		else {
+#ifdef OUTPUT
 			cout << "Init(" << i << "): out of range." << endl;
+#endif
 			for (i = 0; i < LEN; ++i) cell[i] = 0;
 			return false;
 		};
@@ -426,7 +428,9 @@ bool Cell::updateSpace(pos_t row, pos_t col) {
 			}
 		}
 	}
+#ifdef OUTPUT
 	cout << "Ok,全部删除" << endl;
+#endif
 	return true;
 }
 
@@ -484,7 +488,9 @@ bool Cell::isOkRow(pos_t row, pos_t col, data_t dat) {
 	for (int c = 1; c <= RANK; ++c) {
 		if (dat == at(row, c)) {
 			if (c != col) { //排除源点
+#ifdef DEBUG
 				cout << "data = [ " << dat << " ] isOkRow( " << row << "," << col << " ): fail;" << endl;
+#endif
 				return false;
 			}
 		}
@@ -496,7 +502,9 @@ bool Cell::isOkCol(pos_t row, pos_t col, data_t dat) {
 	for (int r = 1; r <= RANK; ++r) {
 		if (dat == at(r, col)) {
 			if (r != row) { //排除源点
+#ifdef DEBUG
 				cout << "data = [ " << dat << " ],isOkCol( " << row << "," << col << " ): fail;" << endl;
+#endif
 				return false;
 			}
 		}
@@ -510,7 +518,9 @@ bool Cell::isOkGrid(pos_t row, pos_t col, data_t dat) {
 		for (int j = 3 * c + 1; j <= 3 * (c + 1); ++j) {
 			if (dat == at(i, j)) {
 				if (i != row && j != col) { //排除源点
+#ifdef DEBUG
 					cout << "isOkGrid( " << row << "," << col << " ): fail;" << endl;
+#endif
 					return false;
 				}
 			}
