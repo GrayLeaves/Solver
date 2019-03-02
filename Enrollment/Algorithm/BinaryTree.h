@@ -17,21 +17,21 @@ typedef struct node{
 
 //递归遍历
 void PreOrder(BTNode *t){
-	if(t!=NULL){
+	if(t!=nullptr){
 		cout << t->data << " ";
 		PreOrder(t->left);
 		PreOrder(t->right);
 	}
 }
 void InOrder(BTNode *t){
-	if(t!=NULL){
+	if(t!=nullptr){
 		InOrder(t->left);
 		cout << t->data << " ";
 		InOrder(t->right);
 	}
 }
 void PostOrder(BTNode *t){
-	if(t!=NULL){
+	if(t!=nullptr){
 		PostOrder(t->left);
 		PostOrder(t->right);
 		cout << t->data << " ";
@@ -44,7 +44,7 @@ void InOrder(BT T){
 	stack S; initStack(S);
 	BTNode *p = T;
 	do{
-		while(p!=NULL){
+		while(p!=nullptr){
 			Push(S,p); p = p->left;
 		}
 		if(!IsEmpty(S)){
@@ -52,7 +52,7 @@ void InOrder(BT T){
 			cout << p->data << " ";
 			p = p->right;
 		}
-	}while(p!=NULL && !IsEmpty(S));
+	}while(p!=nullptr && !IsEmpty(S));
 }
 void LevelOrder(BT T){
 	BTNode *p;
@@ -61,15 +61,15 @@ void LevelOrder(BT T){
 	while(!IsEmpty(Q)){
 		deQueue(Q,p);
 		cout << p->data << " ";
-		if(p->left  != NULL) enQueue(Q,p->left);
-		if(p->right != NULL) enQueue(Q,p->right);
+		if(p->left  != nullptr) enQueue(Q,p->left);
+		if(p->right != nullptr) enQueue(Q,p->right);
 	}
 }
 //完全二叉树存放在数组T[n]中，起始位置为0，转换为二叉链表
 //节点i的左子女为2i+1，右子女为2i+2
 //ConstructTree(T,n,0,root);
 void ConstructTree(DataType T[],int n,int i,BTNode* &p){
-	if(i>n) p = NULL;
+	if(i>n) p = nullptr;
 	else{
 		p = new BTNode;
 		p->data = T[i];
@@ -78,7 +78,7 @@ void ConstructTree(DataType T[],int n,int i,BTNode* &p){
 	}
 }
 void TreeToArray(BTNode *t,DataType A[],int n,int i){
-	if(t == NULL) return;
+	if(t == nullptr) return;
 	if(i >= n) {cerr << "空间不足" << endl; exit(1);}
 	A[i] = t->data;
 	TreeToArray(t->left,A,n,2*i+1);
@@ -86,33 +86,33 @@ void TreeToArray(BTNode *t,DataType A[],int n,int i){
 }
 //二叉链树中指定节点的父节点
 BTNode* Parent(BTNode *t,BTNode *p){
-	if(t == NULL) return NULL;
+	if(t == nullptr) return nullptr;
 	if(t->left == p || t->right == p) return p;
 	BTNode *p = Parent(t->left,p);
-	if(p!=NULL) return p;
+	if(p!=nullptr) return p;
 	else return Parent(t->right,p);
 }
 //统计二叉链树中度为0,1,2的节点数
 int Degree0(BTNode* t){
-	if(t==NULL) return 0;
-	if(t->left == NULL && t->right == NULL) return 1;
+	if(t==nullptr) return 0;
+	if(t->left == nullptr && t->right == nullptr) return 1;
 		return Degree0(t->left)+Degree0(t->right);
 }
 int Degree1(BTNode* t){
-	if(t==NULL) return 0;
-	if(t->left != NULL && t->right == NULL || t->right != NULL && t->left == NULL)
+	if(t==nullptr) return 0;
+	if(t->left != nullptr && t->right == nullptr || t->right != nullptr && t->left == nullptr)
 		return 1+Degree1(t->left)+Degree1(t->right);
 	else return  Degree1(t->left)+Degree1(t->right);
 }
 int Degree2(BTNode* t){
-	if(t==NULL) return 0;
-	if(t->left != NULL && t->right != NULL)
+	if(t==nullptr) return 0;
+	if(t->left != nullptr && t->right != nullptr)
 		return 1+Degree2(t->left)+Degree2(t->right);
 	else return  Degree2(t->left)+Degree2(t->right);
 }
 //二叉链树指定节点所在深度 depth = Level(root,p,1)
 int Level(BTNode *t,BTNode *p,int d){
-	if(t == NULL) return 0;
+	if(t == nullptr) return 0;
 	if(t == p) return d;
 	int sub = Level(t->left,p,d+1);
 	if(sub > 0) return sub;
@@ -120,13 +120,13 @@ int Level(BTNode *t,BTNode *p,int d){
 }
 //删除叶节点
 void defolite(BTNode* &t){
-	if(t == NULL) return;
-	if(t->left == NULL && t->right == NULL) {delete t; t = NULL;}
+	if(t == nullptr) return;
+	if(t->left == nullptr && t->right == nullptr) {delete t; t = nullptr;}
 	else {defolite(t->left); defolite(t->right);}
 }
 //求二叉链树最值
 void maxVal(BTNode *t,DataType& max){
-	if(t!=NULL){
+	if(t!=nullptr){
 		if(t->data > max) max = t->data;
 		maxVal(t->left,max);
 		maxVal(t->right,max);
@@ -146,7 +146,7 @@ void MakeTree(BTNode* &t, DataType pre[], DataType in[], int s1, int t1, int s2,
 	int i;
 	if(s1<=t1){
 		t = new BTNode;
-		t->data = pre[s1]; t->left = t->right = NULL;
+		t->data = pre[s1]; t->left = t->right = nullptr;
 		for(i=s2; i<=t2; ++i){
 			if(in[i] == pre[s1]) break; //中序序列中查找根
 		}
@@ -158,7 +158,7 @@ void MakeTree(BTNode* &t, DataType pre[], DataType in[], int s1, int t1, int s2,
 void MakeTree(BTNode* &t, DataType post[], DataType in[], int s1, int t1, int s2, int t2){
 	if(s1<=t1){
 		t = new BTNode;
-		t->data = post[t1]; t->left = t->right = NULL;
+		t->data = post[t1]; t->left = t->right = nullptr;
 		for(i=s2; i<=t2; ++i){
 			if(in[i] == post[t1]) break; //中序序列中查找根
 		}
@@ -168,7 +168,7 @@ void MakeTree(BTNode* &t, DataType post[], DataType in[], int s1, int t1, int s2
 }
 //二叉链树中找到指定节点并记录过程
 bool Find_Print(BTNode *t,DataType x,DataType path[],int level,int count){
-	if(t!=NULL){
+	if(t!=nullptr){
 		path[level-1] = t->data;
 		if(t->data == x) {count = level; return true;}
 		if(Find_Print(t->left,x,path,level+1,count)) retuen true;
@@ -178,17 +178,17 @@ bool Find_Print(BTNode *t,DataType x,DataType path[],int level,int count){
 }
 //查找前序序列的第n个节点 PreSearchK(root,count,k)/*count = 0*/
 BTNode* PreSearchK(BTNode *t,int &count,int k){
-	if(t!=NULL){
+	if(t!=nullptr){
 		if(++count == k) retuen t;
 		BTNode* p = PreSearchK(t->left,count,k);
-		if(p!=NULL) return p;
+		if(p!=nullptr) return p;
 		return PreSearchK(t->right,count,k);
 	}
-	return NULL;
+	return nullptr;
 }
 //后序遍历求树高并判断树是否平衡
 bool HeightBalance(BTNode *t,int& height){
-	if(t!=NULL){
+	if(t!=nullptr){
 		int lh, rh;
 		if(!HeightBalance(t->left,lh)) return false;
 		if(!HeightBalance(t->right,rh)) return false;
@@ -201,14 +201,14 @@ bool HeightBalance(BTNode *t,int& height){
 //求二叉链树中每层节点数并返回该层最大节点数（树宽）
 int LevelNodes(BT& T,int count[],int& level){
 	BTNode* p = T;
-	if(p!=NULL){
+	if(p!=nullptr){
 		level = 0;
 		int front=0, rear=0, last=1, num=0, max=0;//last 是每层最后节点号
 		BTNode* Q[n]; rear++; Q[rear] = p;		  //根进队列
 		while(front!=rear){
 			front = (front+1)%n; p = Q[front]; num++; // 记录节点数
-			if(p->left!=NULL) {rear = (rear+1)%n; Q[rear] = p->left;}
-			if(p->right!=NULL) {rear = (rear+1)%n; Q[rear] = p->right;}
+			if(p->left!=nullptr) {rear = (rear+1)%n; Q[rear] = p->left;}
+			if(p->right!=nullptr) {rear = (rear+1)%n; Q[rear] = p->right;}
 			if(front == last){
 				last = rear; count[level++] = num; num = 0;
 			}
@@ -222,13 +222,13 @@ int LevelNodes(BT& T,int count[],int& level){
 //判断是否为完全二叉树
 bool isCompleted(BT& T){
 	BTNode* p = T;
-	if(p == NULL) return true;
+	if(p == nullptr) return true;
 	BTNode* Q[n], int front=0, int rear=0;
 	bool flag = false;				//标志队列中未遇到空队列元素
 	Q[rear] = p; rear = (rear+1)%n;
 	while(front!=rear){
 		p = Q[front]; front = (front+1)%n;
-		if(p == NULL) flag = true;	//遍历中遇到空队列
+		if(p == nullptr) flag = true;	//遍历中遇到空队列
 		else{
             if(flag) return false; //前面夹杂着空队列元素，非完全二叉树
             else {					//不管子女是否为空都入队

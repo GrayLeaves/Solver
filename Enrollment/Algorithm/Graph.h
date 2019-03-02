@@ -71,7 +71,7 @@ Weight getWeight(MGraph &G,int v,int w){
 int getFirstNeighbor(ALGraph &G,int v){
 	if(v!=-1){
 		EdgeNode *p = G.VertexList[v].adj;
-		if(p!=NULL) return p->dest;
+		if(p!=nullptr) return p->dest;
 	}
 	return -1;
 }
@@ -79,8 +79,8 @@ int getFirstNeighbor(ALGraph &G,int v){
 int getNextNeighbor(MGraph &G,int v, int w){
 	if(v!=-1){
 		EdgeNode *p = G.VertexList[v].adj;
-		while(p!=NULL && p->dest!=w) p = p->link;
-		if(p!=NULL && p->link!=NULL) return p->link->dest;
+		while(p!=nullptr && p->dest!=w) p = p->link;
+		if(p!=nullptr && p->link!=nullptr) return p->link->dest;
 	}
 	return -1;
 }
@@ -138,8 +138,8 @@ Type getVal(MGraph &G,int v){
 }
 Weight getWeight(MGraph &G,int v,int w){
 	EdgeNode *p = G.VertexList[v].adj;
-	while(p!=NULL && p->dest!=w) p = p->link;
-	if(p!=NULL) return p->cost;
+	while(p!=nullptr && p->dest!=w) p = p->link;
+	if(p!=nullptr) return p->cost;
 	else return -1;
 }
 
@@ -155,7 +155,7 @@ void MatToList(MGraph &G1,ALGraph &G2){
 	EdgeNode *p, *rear;
 	for(i=0; i<G1.numVertices; ++i){	//逐节点转换
 		G2.VertexList[i].data = G1.VertexList[i];
-		G2.VertexList[i].adj = NULL;
+		G2.VertexList[i].adj = nullptr;
 		for(j=0; j<G1.numVertices; ++j) if(G1.Edge[i][j]) break;//找到第一个邻接顶点
 		if(j<G1.numVertices){
 			p = new EdgeNode; p->dest = j;//插入新的边节点
@@ -182,7 +182,7 @@ void ListToMat(ALGraph &G1,MGraph &G2){
 			G2.Edge[i][j] = 0;
 	for(i=0; i<maxVertices; ++i){ //逐个顶点复制
 		G2.VertexList[i] = G1.VertexList[i].data;
-		for(p=G1.VertexList[i].adj; p!=NULL; p=p->link)
+		for(p=G1.VertexList[i].adj; p!=nullptr; p=p->link)
 			G2.Edge[i][p->dest] = 1;
 	}
 }
@@ -194,10 +194,10 @@ void ConverseList(ALGraph &G1,ALGraph &G2){
 	G2.VertexList = new VertexNode[maxVertices]; //创建逆邻接表顶点集
 	for(i=0; i<G1.numVertices; ++i){	//逐节点转换
 		G2.VertexList[i].data = G1.VertexList[i].data;
-		G2.VertexList[i].adj = NULL;
+		G2.VertexList[i].adj = nullptr;
 	}
 	for(i=0; i<maxVertices; ++i){ 					//逐个顶点转换
-		for(p=G1.VertexList[i].adj; p!=NULL; p=p->link){
+		for(p=G1.VertexList[i].adj; p!=nullptr; p=p->link){
 			q = new EdgeNode; q->dest = i;  		//创建入边表新节点
 			q->link = G2.VertexList[p->dest].adj;	//插入入边表的前端
 			G2.VertexList[p->dest].adj = q;

@@ -1,7 +1,7 @@
 //下面的程序可以从0....n-1中随机等概率的输出m个不重复的数。这里我们假设n远大于m
 /*void knuth(int n, int m)
 {
-    srand((unsigned int)time(nullptr));
+    srand((unsigned int)time(nullptrptr));
     for (int i = 0; i < n; i++) {
         if ( rand()%(n-i)<m ) {
             cout << i << endl;
@@ -256,18 +256,18 @@ void radixsort(vector<int>& data) //基数排序
 }
 //逆转单链表,h为链表头节点
 void ReverseList(LinkNode* &h){
-	if(h == NULL) return;
-	LinkNode *p = h->link, *pr = NULL;
-	while(p!=NULL){
+	if(h == nullptr) return;
+	LinkNode *p = h->link, *pr = nullptr;
+	while(p!=nullptr){
 		h->link = pr;				//逆转h指针
 		pr = h; h = p; p = p->link; //指针前移
 	}
 }
 void ReverseList(LinkList& L){
-    if(L == NULL) return;
+    if(L == nullptr) return;
 	LinkNode *p = L->link, *pr;
-	L->link = NULL;
-	while(p!=NULL){
+	L->link = nullptr;
+	while(p!=nullptr){
 		pr = p; p = p->link;  //摘下余链首节点
 		pr->link = L->link;	  //作为首节点插入结果链
 		L->link = pr;
@@ -277,37 +277,37 @@ void ReverseList(LinkList& L){
 void ReverseMerge(LinkList& ha, LinkList& hb){
 	LinkNode *pa, *pb, *last, *q;
 	pa = ha->link; pb = hb->link;		//设置ha hb链表的检测指针
-	ha->link = NULL; delete hb;			//结果链表初始化
-	while(pa!=NULL && pb!=NULL){
+	ha->link = nullptr; delete hb;			//结果链表初始化
+	while(pa!=nullptr && pb!=nullptr){
 		if(pa->data <= pb->data)
             {q = pa; pa = pa->link;}
 		else
             {q = pb; pb = pb->link;}
 		q->link = ha->link; ha->link = q; //插入到链头中
 	}
-	if(pb!=NULL) pa = pb;				//处理余链，选择长的那个
-	while(pa!=NULL){
+	if(pb!=nullptr) pa = pb;				//处理余链，选择长的那个
+	while(pa!=nullptr){
 		q = pa; pa = pa->link;
 		q->link = ha->link; ha->link = q;
 	}
 }
 ////递归遍历
 void PreOrder(BTNode *t){
-	if(t!=NULL){
+	if(t!=nullptr){
 		cout << t->data << " ";
 		PreOrder(t->left);
 		PreOrder(t->right);
 	}
 }
 void InOrder(BTNode *t){
-	if(t!=NULL){
+	if(t!=nullptr){
 		InOrder(t->left);
 		cout << t->data << " ";
 		InOrder(t->right);
 	}
 }
 void PostOrder(BTNode *t){
-	if(t!=NULL){
+	if(t!=nullptr){
 		PostOrder(t->left);
 		PostOrder(t->right);
 		cout << t->data << " ";
@@ -320,7 +320,7 @@ void InOrder(BT T){
 	stack S; initStack(S);
 	BTNode *p = T;
 	do{
-		while(p!=NULL){
+		while(p!=nullptr){
 			Push(S,p); p = p->left;
 		}
 		if(!IsEmpty(S)){
@@ -328,7 +328,7 @@ void InOrder(BT T){
 			cout << p->data << " ";
 			p = p->right;
 		}
-	}while(p!=NULL && !IsEmpty(S));
+	}while(p!=nullptr && !IsEmpty(S));
 }
 void LevelOrder(BT T){
 	BTNode *p = T;
@@ -337,21 +337,21 @@ void LevelOrder(BT T){
 	while(!IsEmpty(Q)){
 		deQueue(Q,p);
 		cout << p->data << " ";
-		if(p->left  != NULL) enQueue(Q,p->left);
-		if(p->right != NULL) enQueue(Q,p->right);
+		if(p->left  != nullptr) enQueue(Q,p->left);
+		if(p->right != nullptr) enQueue(Q,p->right);
 	}
 }
 //二叉链树中指定节点的父节点
 BTNode* Parent(BTNode *t,BTNode *p){
-	if(t == NULL) return NULL;
+	if(t == nullptr) return nullptr;
 	if(t->left == p || t->right == p) return p;
 	BTNode *p = Parent(t->left,p);
-	if(p!=NULL) return p;
+	if(p!=nullptr) return p;
 	else return Parent(t->right,p);
 }
 //二叉链树指定节点所在深度 depth = Level(root,p,1)
 int Level(BTNode *t,BTNode *p,int d){
-	if(t == NULL) return 0;
+	if(t == nullptr) return 0;
 	if(t == p) return d;
 	int sub = Level(t->left,p,d+1);
 	if(sub > 0) return sub;
@@ -359,7 +359,7 @@ int Level(BTNode *t,BTNode *p,int d){
 }
 //二叉链树中找到指定节点并记录过程
 bool Find_Print(BTNode *t,DataType x,DataType path[],int level,int count){
-	if(t!=NULL){
+	if(t!=nullptr){
 		path[level-1] = t->data;
 		if(t->data == x) {count = level; return true;}
 		if(Find_Print(t->left,x,path,level+1,count)) retuen true;
@@ -369,21 +369,21 @@ bool Find_Print(BTNode *t,DataType x,DataType path[],int level,int count){
 }
 //删除二叉查找树中所有不大于x的节点
 void del_ngt(BSTNode *t,DataType x){
-	BSTNode *p, *pr = NULL;
-	while(t!=NULL){
-		while(t!=NULL && t->data <= x){
+	BSTNode *p, *pr = nullptr;
+	while(t!=nullptr){
+		while(t!=nullptr && t->data <= x){
 			p = t; t = t->right;
 			delSubTree(p->left);
 			delete p;
-			if(pr!=NULL) pr->left = t;
+			if(pr!=nullptr) pr->left = t;
 		}
-		while(t!=NULL && t->data > x){
+		while(t!=nullptr && t->data > x){
 			pr = t; t = t->left;
 		}
 	}
 }
 void delSubTree(BSTNode *p){
-	if(p!=NULL){
+	if(p!=nullptr){
 		delSubTree(p->left);
 		delSubTree(p->right);
 		delete p;
@@ -391,7 +391,7 @@ void delSubTree(BSTNode *p){
 }
 //后序遍历求树高并判断树是否平衡
 bool HeightBalance(BTNode *t,int& height){
-	if(t!=NULL){
+	if(t!=nullptr){
 		int lh, rh;
 		if(!HeightBalance(t->left,lh)) return false;
 		if(!HeightBalance(t->right,rh)) return false;
@@ -404,13 +404,13 @@ bool HeightBalance(BTNode *t,int& height){
 //判断是否为完全二叉树
 bool isCompleted(BT& T){
 	BTNode* p = T;
-	if(p == NULL) return true;
+	if(p == nullptr) return true;
 	BTNode* Q[n], int front=0, int rear=0;
 	bool flag = false;				//标志队列中未遇到空队列元素
 	Q[rear] = p; rear = (rear+1)%n;
 	while(front!=rear){
 		p = Q[front]; front = (front+1)%n;
-		if(p == NULL) flag = true;	//遍历中遇到空队列
+		if(p == nullptr) flag = true;	//遍历中遇到空队列
 		else{
             if(flag) return false; //前面夹杂着空队列元素，非完全二叉树
             else {					//不管子女是否为空都入队
@@ -466,7 +466,7 @@ Weight getWeight(MGraph &G,int v,int w){
 int getFirstNeighbor(ALGraph &G,int v){
 	if(v!=-1){
 		EdgeNode *p = G.VertexList[v].adj;
-		if(p!=NULL) return p->dest;
+		if(p!=nullptr) return p->dest;
 	}
 	return -1;
 }
@@ -474,8 +474,8 @@ int getFirstNeighbor(ALGraph &G,int v){
 int getNextNeighbor(MGraph &G,int v, int w){
 	if(v!=-1){
 		EdgeNode *p = G.VertexList[v].adj;
-		while(p!=NULL && p->dest!=w) p = p->link;
-		if(p!=NULL && p->link!=NULL) return p->link->dest;
+		while(p!=nullptr && p->dest!=w) p = p->link;
+		if(p!=nullptr && p->link!=nullptr) return p->link->dest;
 	}
 	return -1;
 }
@@ -533,7 +533,7 @@ Type getVal(MGraph &G,int v){
 }
 Weight getWeight(MGraph &G,int v,int w){
 	EdgeNode *p = G.VertexList[v].adj;
-	while(p!=NULL && p->dest!=w) p = p->link;
-	if(p!=NULL) return p->cost;
+	while(p!=nullptr && p->dest!=w) p = p->link;
+	if(p!=nullptr) return p->cost;
 	else return -1;
 }

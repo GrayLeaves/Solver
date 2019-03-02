@@ -40,7 +40,7 @@ bool Pop(SeqStack& S,DataType& x){
 //栈满扩张
 void StackFull(SeqStack& S){
 	DataType* temp = new DataType[2*S.maxSize];
-	if(temp == NULL) {cout << "Allocation Failure." << endl; exit(1);}
+	if(temp == nullptr) {cout << "Allocation Failure." << endl; exit(1);}
 	for(int i=0; i<=S.top; ++i) temp[i] = S.elem[i];
 	delete [] S.elem;
 	S.maxSize *= 2;
@@ -49,7 +49,7 @@ void StackFull(SeqStack& S){
 //借助栈实现链表逆序
 void Reverse(LinkList& L){
 	LinkStack S; LinkNode *p = L->link, *q;
-	if(p!=NULL){
+	if(p!=nullptr){
 		L->link = p->link; Push(S,p);	//摘下节点，进栈
 		p = L->link;
 	}
@@ -58,12 +58,12 @@ void Reverse(LinkList& L){
 		Pop(S,q);						//q指向退栈节点
 		p->link = q; p = q;				//插入链尾中
 	}
-	p->link = NULL;
+	p->link = nullptr;
 }
 
 void initStack(DblStack& S,int sz){
 	S.elem = new DataType[sz];
-	if(S.elem == NULL) {cout << "Allocation Failure." << endl; exit(1);}
+	if(S.elem == nullptr) {cout << "Allocation Failure." << endl; exit(1);}
 	S.size = sz; S.top[0] = S.bot[0] = -1; S.top[1] = S.top[1] = sz;
 }
 bool StackEmpty(DblStack& S, int i) {return top[i] == bot[i];}

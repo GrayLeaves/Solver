@@ -15,7 +15,7 @@ typedef struct SetNode{
 //并
 void UnionSet(LinkedSet& A,LinkedSet& B,LinkedSet& C){
 	SetNode *pa = A->link, *pb = B->link, *p, *pc = C;
-	while(pa!=NULL && pb!=NULL){
+	while(pa!=nullptr && pb!=nullptr){
 		if(pa->data==pb->data){
 			pc->link = new SetNode; pc->data = pa->data;
 			pa = pa->link; pb = pb->link;
@@ -30,18 +30,18 @@ void UnionSet(LinkedSet& A,LinkedSet& B,LinkedSet& C){
 			 }
 		pc = pc->link;
 	}
-	if(pa!=NULL) p = pa;			//处理余链
+	if(pa!=nullptr) p = pa;			//处理余链
 	else p = pb;
-	while(p!=NULL){
+	while(p!=nullptr){
 		pc->link = new SetNode; pc->data = p->data;
 		p = p->link; pc = pc->link;
 	}
-	pc->link = NULL;				//收尾
+	pc->link = nullptr;				//收尾
 }
 //交
 void IntersectionSet(LinkedSet& A,LinkedSet& B,LinkedSet& C){
 	SetNode *pa = A->link, *pb = B->link, *pc = C;
-	while(pa!=NULL && pb!=NULL){
+	while(pa!=nullptr && pb!=nullptr){
 		if(pa->data==pb->data){
 			pc->link = new SetNode; pc->data = pa->data;
 			pa = pa->link; pb = pb->link;
@@ -49,11 +49,11 @@ void IntersectionSet(LinkedSet& A,LinkedSet& B,LinkedSet& C){
 		else if(pa->data < pb->data) pa = pa->link;
 			 else pb = pb->link;
 	}
-	pc->link = NULL;				//收尾
+	pc->link = nullptr;				//收尾
 }
 void DifferenceSet(LinkedSet& A,LinkedSet& B,LinkedSet& C){
 	SetNode *pa = A->link, *pb = B->link, *pc = C;
-	while(pa!=NULL && pb!=NULL){
+	while(pa!=nullptr && pb!=nullptr){
 		if(pa->data==pb->data){
 			pa = pa->link; pb = pb->link;
 		}
@@ -63,10 +63,10 @@ void DifferenceSet(LinkedSet& A,LinkedSet& B,LinkedSet& C){
 		     }
 			 else pb = pb->link;
 	}
-	while(pa!=NULL){
+	while(pa!=nullptr){
 		pc->link = new SetNode; pc->data = pa->data;
 		pa = pa->link; pc = pc->link;
 	}
-	pc->link = NULL;				//收尾
+	pc->link = nullptr;				//收尾
 }
 #endif

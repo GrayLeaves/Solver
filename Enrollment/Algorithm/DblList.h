@@ -43,10 +43,10 @@ void Reverse(DblList L){
 //排序,prev链域把所有节点元素值递增链接
 void OrderedLink(DblList& DL){
 	DblNode *pr, *p, *s = DL->next->next;
-	DL->prev = DL->next; DL->prev->prev = NULL;
-	while(s!=NULL){
+	DL->prev = DL->next; DL->prev->prev = nullptr;
+	while(s!=nullptr){
 		p = DL->prev; pr = DL;				//从链表启动检测
-		while(p!=NULL && p->data < s->data){
+		while(p!=nullptr && p->data < s->data){
 			pr = p; p = p->prev;			//找寻插入点
 		}
 		pr->prev = s; s->prev = p;			//链入prev
@@ -61,14 +61,14 @@ void CreatPolynomial(Polynomial& L){
 	cin >> c >> e;
 	while(e>=0){
 		p = L->link; pr = L;
-		while(p!=NULL && p->exp < e) {pr = p; p = p->link;}
-		if(p!=NULL && p->exp == e){
+		while(p!=nullptr && p->exp < e) {pr = p; p = p->link;}
+		if(p!=nullptr && p->exp == e){
 			cout << "Exist and whether to replace it [y/n]:" << endl;
 			cin >> flag; if(flag == 'y') p->coef = c;
 		}
 		else{
 			s = new Term;
-			if(s==NULL){cout << "Allocation Failure." << endl; exit(1);}
+			if(s==nullptr){cout << "Allocation Failure." << endl; exit(1);}
 			s->coef = c; s->exp = e;
 			pr->link = s; s->link = p;
 		}
@@ -79,7 +79,7 @@ void CreatPolynomial(Polynomial& L){
 //一元多项式插入新项
 void InsertPolynomial(Polynomial& L,float c,int e){
 	Term *pre = L, *p = L->link;
-	while(p!=NULL && p->exp > e) {pre = p; p = p->link;}
+	while(p!=nullptr && p->exp > e) {pre = p; p = p->link;}
 	if(p->exp == e){
 		if(p->coef + c != 0) p->coef = p->coef + c; //合并
 		else {pre->link = p->link; delete p;}		//或删除
@@ -93,10 +93,10 @@ void InsertPolynomial(Polynomial& L,float c,int e){
 //一元多项式的乘法
 void MultiplePolynomial(Polynomial& A,Polynomial& B,Polynomial& C){
 	Term *pa = A->link, *pb;
-	C = new Term; C->link = NULL;
-	while(pa!=NULL){
+	C = new Term; C->link = nullptr;
+	while(pa!=nullptr){
 		pb = B->link
-		while(pb!=NULL){
+		while(pb!=nullptr){
 			InsertPolynomial(C,pa->coef * pb->coef, pa->exp + pb->exp);
 			pb = pb->link;
 		}
@@ -107,7 +107,7 @@ void MultiplePolynomial(Polynomial& A,Polynomial& B,Polynomial& C){
 //降幂链接的稠密一元多项式
 float calcValue(Polynomial& L,float x){
 	Term *p = L->link; float result = 0.0f;
-	while(p!=NULL){
+	while(p!=nullptr){
 		result = result*x + p->coef;
 		p = p->link;
 	}
@@ -116,7 +116,7 @@ float calcValue(Polynomial& L,float x){
 //升幂链接的稠密一元多项式
 float calcValueR(Polynomial& L,float x){
 	Term *pr = L, *p = L->link, *q; float result = 0.0f;
-	while(p!=NULL){
+	while(p!=nullptr){
 		q = p->link; p->link = pr; pr = p; p = q;	//逆转单链表
 	}
 	while(pr!=L){
@@ -129,7 +129,7 @@ float calcValueR(Polynomial& L,float x){
 //升幂链接的稀疏一元多项式
 float calcValueS(Polynomial& L,float x){
 	Term *p = L->link; float result = 0.0f;
-	while(p!=NULL){
+	while(p!=nullptr){
 		result += pow(x,p->exp) * p->coef;
 		p = p->link;
 	}

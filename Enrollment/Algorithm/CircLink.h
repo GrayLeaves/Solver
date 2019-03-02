@@ -20,12 +20,12 @@ typedef LinkNode staticList[DefaultSize];
 //不带头节点，仅有表尾指针的循环链表中插入元素x
 void InsertLink(CircNode* &rear,DataType x){
 	CircNode *s = new CircNode;
-	if(s == NULL) {cout << "Allocation Failure." << endl; exit(1);}
+	if(s == nullptr) {cout << "Allocation Failure." << endl; exit(1);}
 	s->data = x; s->link = rear->link; rear->link = s; rear = s;
 }
 //删除首节点，表尾指针
 bool RemoveLink(CircNode* &rear,DataType& x){
-	if(rear == NULL) return false;
+	if(rear == nullptr) return false;
 	CircNode* s = rear->link;
 	rear->link = s->link; x = s->data; delete s;
 	return true;

@@ -45,8 +45,8 @@ void RotateRL(AVLNode *&a){
 }
 bool isAVL(AVLNode *t,int& h){
 	int hl, hr;
-	if(t == NULL) {h = 0; return true;}
-	if(t->left == NULL && t->right == NULL) {h = 1; return true;}
+	if(t == nullptr) {h = 0; return true;}
+	if(t->left == nullptr && t->right == nullptr) {h = 1; return true;}
 	if(!isAVL(t->left,hl)) return false;
 	if(!isAVL(t->right,hr)) return false;
 	h = (hl>hr)? hl+1:hr+1;
